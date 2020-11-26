@@ -17,7 +17,7 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
 }
 
-tasks.withType<ShadowJar>() {
+tasks.withType<ShadowJar> {
     manifest {
         attributes["Main-Class"] = "square.AppKt"
     }

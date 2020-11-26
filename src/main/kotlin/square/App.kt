@@ -3,6 +3,7 @@ package square
 object BankAccount {
  var bankBalance = 0.00
 }
+/// initializing the bank at runtime due to lack of persistence
 val bank = BankAccount
 
 class Customer(var name: String, balance: Double) {
@@ -33,32 +34,4 @@ fun withdraw(amount: Double, customer: Customer): Double? {
         bank.bankBalance = bank.bankBalance.minus(amount)
         return customer.balance
     }
-}
-
-fun customerBalance(customer: Customer): Double {
-    return customer.balance
-}
-
-
-fun main() {
-
-
-
- val alice = Customer(name = "alice", balance = 0.00)
-    println(alice.name)
-    println(alice.balance)
- deposit(20.00, alice)
-    println(alice.name)
-    println(alice.balance)
-
- withdraw(30.00, alice)
-    println(alice.name)
-    println(alice.balance)
-
- val result = customerBalance(alice)
-    println("alices balance is $result")
-
-    println ("bank balance is")
-    println (bank.bankBalance)
-
 }
