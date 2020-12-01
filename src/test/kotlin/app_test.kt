@@ -30,4 +30,3 @@ class TestBank {
         assertEquals(220.00, bank.bankBalance)
     }
 }
-

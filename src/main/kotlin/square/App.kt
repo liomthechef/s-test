@@ -1,7 +1,7 @@
 package square
 
 object BankAccount {
- var bankBalance = 0.00
+    var bankBalance = 0.00
 }
 var bank = BankAccount
 
@@ -9,7 +9,8 @@ class Customer(balance: Double) {
     private var customerBalance = 0.00
         set(value) {
             if (value < 0.00) throw IllegalArgumentException(
-                    "balance cannot be negative")
+                "balance cannot be negative"
+            )
             field = value
         }
     init {
@@ -22,20 +23,16 @@ class Customer(balance: Double) {
         return customerBalance
     }
     fun withdraw(amount: Double): Double? {
+        val response: Double?
         if (customerBalance.minus(amount) < 0.00) {
-            return null
-        }
-        else {
+            response = null
+        } else {
             customerBalance = customerBalance.minus(amount)
             bank.bankBalance = bank.bankBalance.minus(amount)
-            return customerBalance
+            response = customerBalance
         }
+        return response
     }
-
 }
-fun main(){}
 
-
-
-
-
+fun main() {}
