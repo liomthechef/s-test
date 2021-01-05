@@ -1,43 +1,34 @@
 package square
 
-data class Customer(val name: String) {
-    var balance: Long = 0
+data class Bank(var bankAccounts: HashMap<String, Long> = HashMap())
+
+fun createAccount(bank: Bank, accountId: String) {
+//getorput method checks if key exists, if it doesn't, it creates it with a default value under the key
+    bank.bankAccounts.getOrPut(accountId, {0})
 }
 
-data class Transaction(val value: Long, val transactionType: TransactionType) {}
-
-enum class TransactionType {
-    Credit, Debit
+fun deposit(bank: Bank, accountId: String, amount: Long): Long? {
+    val balance: Long? = bank.bankAccounts[accountId]
+    require( balance != null) { "account is null, does it exist?"}
+    require(amount > 0) { "amount must be greater than zero"}
+    bank.bankAccounts [accountId] = balance.plus(amount)
+    return balance.plus(amount)
 }
 
-fun deposit(customer: Customer, amount: Long): Long? {
-    val response: Long?
-    if (amount < 0) {
-        response = null
-    } else {
-        val transactionRecord = Transaction(amount, TransactionType.Credit)
-        ledger(customer, transactionRecord)
-
-        customer.balance = customer.balance.plus(amount)
-        response = customer.balance
-    }
-    return response
+fun withdraw(bank: Bank, accountId: String, amount: Long): Long? {
+    val balance = bank.bankAccounts[accountId]
+    require( balance != null) { "account is null, does it exist?"}
+    require(balance.minus(amount) > 0) { "amount must be greater than balance to withdraw"}
+    bank.bankAccounts[accountId] = balance.minus(amount)
+    return balance.minus(amount)
 }
 
-fun withdraw(customer: Customer, amount: Long): Long? {
-    val response: Long?
-    // check if withdrawal amount exceeds bank balance
-    if (customer.balance.minus(amount) < 0) {
-        response = null
-    } else {
-        val transactionRecord = Transaction(amount, TransactionType.Debit)
-        ledger(customer, transactionRecord)
-        customer.balance = customer.balance.minus(amount)
-
-        response = customer.balance
-    }
-    return response
+fun accountBalance(bank: Bank, accountId: String): Long? {
+    val balance = bank.bankAccounts[accountId]
+    require( balance != null) { "account is null, does it exist?"}
+    return balance
 }
 
-
-fun main() {}
+fun bankBalance(bank: Bank): Long {
+    return bank.bankAccounts.map{it.value}.reduce{sum, element -> sum + element}
+}
