@@ -29,7 +29,7 @@ Java, Gradle.
 
 ## Languages
 Kotlin/Java11, built via Gradle.
-Java BigDecimal
+Java
 Junit
 
 ## Build
