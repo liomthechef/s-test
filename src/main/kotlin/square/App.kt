@@ -1,40 +1,50 @@
 package square
 
-import java.math.BigDecimal
 
-object BankAccount {
-    var bankBalance: BigDecimal = BigDecimal.ZERO
+var bankAccounts: HashMap<String, Transaction> = HashMap<String, Transaction>()
+
+data class Customer(val name: String) {
+    var balance: Long = 0
 }
-var bank = BankAccount
 
-class Customer(balance: BigDecimal) {
-    private var customerBalance: BigDecimal = BigDecimal.ZERO
-        set(value) {
-            if (value < BigDecimal.ZERO) {
-                throw IllegalArgumentException("balance cannot be negative")
-            }
-            field = value
-        }
-    init {
-        this.customerBalance = balance
-    }
+data class Transaction(val value: Long, val transactionType: TransactionType) {}
 
-    fun deposit(amount: BigDecimal): BigDecimal {
-        customerBalance = customerBalance.plus(amount)
-        bank.bankBalance = bank.bankBalance.plus(amount)
-        return customerBalance
-    }
-    fun withdraw(amount: BigDecimal): BigDecimal? {
-        val response: BigDecimal?
-        if (customerBalance.minus(amount) < BigDecimal.ZERO) {
-            response = null
-        } else {
-            customerBalance = customerBalance.minus(amount)
-            bank.bankBalance = bank.bankBalance.minus(amount)
-            response = customerBalance
-        }
-        return response
-    }
+enum class TransactionType {
+    Credit, Debit
 }
+
+fun deposit(customer: Customer, amount: Long): Long? {
+    val response: Long?
+    if (amount < 0) {
+        response = null
+    } else {
+        val transactionRecord = Transaction(amount, TransactionType.Credit)
+        ledger(customer, transactionRecord)
+
+        customer.balance = customer.balance.plus(amount)
+        response = customer.balance
+    }
+    return response
+}
+
+fun withdraw(customer: Customer, amount: Long): Long? {
+    val response: Long?
+    // check if withdrawal amount exceeds bank balance
+    if (customer.balance.minus(amount) < 0) {
+        response = null
+    } else {
+        val transactionRecord = Transaction(amount, TransactionType.Debit)
+        ledger(customer, transactionRecord)
+        customer.balance = customer.balance.minus(amount)
+
+        response = customer.balance
+    }
+    return response
+}
+
+fun ledger(customer: Customer, transactionRecord: Transaction) {
+    bankAccounts[customer.name] = transactionRecord
+}
+
 
 fun main() {}
