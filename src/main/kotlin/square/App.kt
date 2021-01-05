@@ -1,30 +1,32 @@
 package square
 
+import java.math.BigDecimal
+
 object BankAccount {
-    var bankBalance = 0.00
+    var bankBalance: BigDecimal = BigDecimal.ZERO
 }
 var bank = BankAccount
 
-class Customer(balance: Double) {
-    private var customerBalance = 0.00
+class Customer(balance: BigDecimal) {
+    private var customerBalance: BigDecimal = BigDecimal.ZERO
         set(value) {
-            if (value < 0.00) throw IllegalArgumentException(
-                "balance cannot be negative"
-            )
+            if (value < BigDecimal.ZERO) {
+                throw IllegalArgumentException("balance cannot be negative")
+            }
             field = value
         }
     init {
         this.customerBalance = balance
     }
 
-    fun deposit(amount: Double): Double {
+    fun deposit(amount: BigDecimal): BigDecimal {
         customerBalance = customerBalance.plus(amount)
         bank.bankBalance = bank.bankBalance.plus(amount)
         return customerBalance
     }
-    fun withdraw(amount: Double): Double? {
-        val response: Double?
-        if (customerBalance.minus(amount) < 0.00) {
+    fun withdraw(amount: BigDecimal): BigDecimal? {
+        val response: BigDecimal?
+        if (customerBalance.minus(amount) < BigDecimal.ZERO) {
             response = null
         } else {
             customerBalance = customerBalance.minus(amount)
