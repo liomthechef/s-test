@@ -1,8 +1,5 @@
 package square
 
-
-var bankAccounts: HashMap<String, Transaction> = HashMap<String, Transaction>()
-
 data class Customer(val name: String) {
     var balance: Long = 0
 }
@@ -40,10 +37,6 @@ fun withdraw(customer: Customer, amount: Long): Long? {
         response = customer.balance
     }
     return response
-}
-
-fun ledger(customer: Customer, transactionRecord: Transaction) {
-    bankAccounts[customer.name] = transactionRecord
 }
 
 
