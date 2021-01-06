@@ -19,6 +19,7 @@ Some negative withdrawal checks have been factored in as I imagine that would be
 Constraints are primarily in scalability, I initially wanted to implement the bank as a ledger of transactions but felt
 the processing complexity didn't fit the trade-off of the brief.
 Concurrency could be an issue with the approaches I took, such as the account creation method.
+The account creation method will not create duplicate accounts with the same key, however the c
 
 ## Assumptions
 Currency wasn't immediately important to the test

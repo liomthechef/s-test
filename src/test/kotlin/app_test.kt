@@ -39,11 +39,18 @@ class TestBankIntegrity {
     }
 }
 
-class TestNonExistentAccount {
+class TestAccounts {
     @test
     fun test_account_nonexistent_exception() {
         val bank = Bank()
         assertFailsWith<IllegalArgumentException> { deposit(bank,"greg", 3000) }
+    }
+
+    @test
+    fun test_account_already_exists_exception() {
+        val bank = Bank()
+        createAccount(bank, accountId = "bruce")
+        assertFailsWith<IllegalArgumentException> { createAccount(bank, accountId = "bruce") }
     }
 }
 
