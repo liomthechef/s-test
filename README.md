@@ -6,7 +6,7 @@ I implemented the bank as a hashmap of accounts, using a dataclass for portabili
 The currency value is in cents using a long datatype, by using the base currency unit instead of float safe option such as BigDecimal it makes currency changes simpler, as well as less complex code.<br>
 A money library would have been an option as well, but I felt too complex for the test to import for this purpose<br><br>
 
-I really wanted to turn this into an event based ledger instead of a hashmap, but to make it performant I felt like I would have overcooked it especially when taking into account debits/credits<br><br>
+I really wanted to turn this into an event based ledger instead of a hashmap, but to make it performant I felt like I would have overcooked it especially when taking into account debits/credits<br>
 
 ## Tests
 <br>
