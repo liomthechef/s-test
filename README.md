@@ -13,23 +13,28 @@ I really wanted to turn this into an event based ledger instead of a hashmap, bu
 Tests aim to provide coverage of general usage from a consumer perspective as well as edge cases such as negative withdrawals, deposits, accounts not existing, etc.
 The goal was to document the code via the tests.<br>
 <br>
+
 ## Constraints
 Constraints are primarily in scalability, I initially wanted to implement the bank as a ledger of transactions but felt the processing complexity didn't fit the trade-off of the brief.<br>
 Concurrency could be an issue with the approaches I took, such as the account creation method, but it wasn't part of the brief.<br>
 I would have preferred to use a result type to manage exception handling in favour of throwing specific exceptions but kotlin doesn't support it as a return type yet.
 <br>
+
 ## Assumptions
 Currency wasn't immediately important to the test<br>
 Transactional history/logging wasn't necessary despite being important in the real world.<br>
 <br>
+
 ## Prerequisites
 Java, Gradle.
 <br>
+
 ## Languages
 Kotlin/Java11, built via Gradle.<br>
 Java<br>
 Junit<br>
 <br>
+
 ## Build
 ./gradlew build<br><br>
 
